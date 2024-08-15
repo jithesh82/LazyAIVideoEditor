@@ -1,0 +1,12 @@
+publish:
+  needs: [ build ]
+  runs-on: ubuntu-lateststeps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Semantic Release
+      uses: cycjimmy/semantic-release-action@v2
+      with:
+        extra_plugins: |
+          @semantic-release/git
+          @semantic-release/exec
+          @semantic-release/changelog
