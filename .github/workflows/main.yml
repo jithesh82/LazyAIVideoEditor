@@ -1,32 +1,16 @@
-name: CI/CD
-
-on:
-  push:
-    branches:
-      - main  # Trigger the workflow on push to the main branch
-  pull_request:
-    branches:
-      - main  # Trigger the workflow on pull request to the main branch
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      # Add your build steps here
-
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
-        with:
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/exec
-            @semantic-release/changelog
-
+publish:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16' # Use Node.js 16 or higher for ES Modules support
+    - name: Install Dependencies
+      run: npm install
+    - name: Semantic Release
+      run: npx semantic-release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
