@@ -3,7 +3,23 @@ import whisper
 import os
 import pickle
 import glob
+import shelve
+import sys
 
+"""
+What I do:
+Read the clips. Extract wav files. Creates clip objects which
+contains, file name, transcribe data. Opens tk windows one for
+each clip showing texts.  User can choose the texts in order as
+1, 2, 3 according to film script.
+"""
+
+# define this before first running the code
+#projectName = "chat_room"
+projectName = sys.argv[1]
+
+# the absolute path of the folder containing this py file
+rootDir = os.path.dirname((os.path.abspath(__file__)))
 
 clipObjList = []
 
@@ -23,11 +39,13 @@ def transcribeMe(obj):
     for id_ in range(segment_len):
         print(id_, result['segments'][id_]['text']) 
 
-    pickle.dump(result, open('result.pkl', 'wb'))
+    # asbolute pickle path
+    pickleFile = os.path.join(rootDir, 'result.pkl')
+    pickle.dump(result, open(pickleFile, 'wb'))
 
     obj.result = result
 
-
+# older version of cutMe; not used here
 def cutMe(obj, count):
     #result = pickle.load(open('./result.pkl', 'rb'))
     result = obj.result
@@ -56,7 +74,9 @@ def cutMe(obj, count):
                 end = seg['end']
                 end -= 0
                 duration = end - start
-                outfile = './output/' + str(count) + '.mov'
+                # absolute output path
+                outputDir = os.path.join(rootDir, 'output')
+                outfile = outputDir + str(count) + '.mov'
                 count += 1
                 # command to run
                 cmd = 'ffmpeg -i ' + fname 
@@ -75,21 +95,38 @@ class clipObj:
     def __init__(self, fileName):
         self.fileName = fileName
 
+# absolute output path
+outputDir = os.path.join(rootDir, 'output')
 # make output folder if doesn't exist
-if os.path.exists('./output'):
-    for file in os.listdir('./output'):
-        os.remove(os.path.join('./output', file ))
+if os.path.exists(outputDir):
+    for file in os.listdir(outputDir):
+        os.remove(os.path.join(outputDir, file ))
 else:
-    os.mkdir('./output')
+    os.mkdir(outputDir)
 
-fileList = glob.glob('./input/*.MOV')
-for file_ in fileList:
-    obj = clipObj(file_)
-    clipObjList.append(obj)
+# avoids re-transcribing
+shelveName = projectName + '.db'
+shelveFile = os.path.join(rootDir, shelveName)
+print(shelveFile)
+# absoluted input dir
+inputDir = os.path.join(rootDir, 'input')
+if not os.path.exists(shelveFile):
 
-for obj in clipObjList:
-    transcribeMe(obj)
-    
+    fileList = glob.glob(inputDir + '/*.MOV')
+    for file_ in fileList:
+        obj = clipObj(file_)
+        clipObjList.append(obj)
+
+    for obj in clipObjList:
+        transcribeMe(obj)
+
+else:
+    # absolute path without .db
+    dbFile = os.path.join(rootDir, projectName)
+    db = shelve.open(dbFile)
+    clipObjList = db['objlist']
+    db.close()
+
 
 # first window root
 # rest Toplevel
@@ -129,11 +166,17 @@ root.mainloop()
 for obj in clipObjList:
     print(obj.choices)
 
-#with open('clip_obj_list.pkl', 'wb') as f:
-#    pickle.dump(clipObjList, f)
 
-import shelve
-db = shelve.open('clipobjlist')
+# creating shelve object 
+# absolute path
+cliobjlistdb = os.path.join(rootDir, 'clipobjlist')
+db = shelve.open(cliobjlistdb)
 db['objlist'] = clipObjList
 db.close()
 
+# creating shelve object to avoid repeating
+# absolute path
+projectdb = os.path.join(rootDir, projectName) 
+db = shelve.open(projectdb)
+db['objlist'] = clipObjList
+db.close()
