@@ -14,7 +14,7 @@ projectDir = "/home/jk/jk/work/" + projectName
 # this files directory
 rootDir = os.path.dirname(os.path.abspath(__file__))
 
-run = True
+run = False
 
 if run:
 
@@ -73,17 +73,17 @@ if run:
         cmd = "cp " + file_ + " " + lazyInputDir
         os.system(cmd)
 
-    # transcribe and choose and create clipobjects
-    transcribeClipPY = os.path.join(rootDir, "clip_transcribe.py")
-    print("starting to transcribe ......")
-    cmd = "python " + transcribeClipPY + " " + projectName
-    os.system(cmd)
+# transcribe and choose and create clipobjects
+transcribeClipPY = os.path.join(rootDir, "clip_transcribe.py")
+print("starting to transcribe ......")
+cmd = "python " + transcribeClipPY + " " + projectName
+os.system(cmd)
 
-    # running the clipobj analyzer
-    print("running clip object analyzer......")
-    clipObjectAnalyzePY = os.path.join(rootDir, "objclip_analysis.py")
-    cmd = "python " + clipObjectAnalyzePY
-    os.system(cmd)
+# running the clipobj analyzer
+print("running clip object analyzer......")
+clipObjectAnalyzePY = os.path.join(rootDir, "objclip_analysis.py")
+cmd = "python " + clipObjectAnalyzePY
+os.system(cmd)
 
 # running join files
 print("joing files to final video ......")
