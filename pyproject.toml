@@ -18,7 +18,6 @@ keywords = ["example", "simple", "package"]
 homepage = "https://jitheshkuyyalil.com"
 repository = "https://github.com/jithesh82/LazyAIVideoEditor"
 
-[project]
 # Add your dependencies here, e.g., numpy = ">=1.18.0"
 dependencies = [
 	'openai-whisper>=v20230314',
