@@ -1,32 +1,30 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "LazyAIVideoEditor"
 version = "0.0.1"
-description = "AI video editor"
-authors = [
-    { name="Jithesh Kuyyalil", email="jithesh82@gmail.com" }
-]
-license = { file="LICENSE" }
+description = "Lovely Spam! Wonderful Spam!"
 readme = "README.md"
-requires-python = ">=3.7"
-keywords = ["example", "simple", "package"]
+requires-python = ">=3.8"
+license = {file = "LICENSE.txt"}
+keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
+authors = [
+  {email = "jithesh82@gmail.com"},
+  {name = "Jithesh Kuyyalil"}
+]
+maintainers = [
+  {name = "Jithesh Kuyyalil", email = "jithesh82@gmail.com"}
+]
+classifiers = [
+  "Development Status :: 1 - Beta",
+  "Programming Language :: Python"
+]
+
+dependencies = [
+  "openai-whisper >= v20231117",
+]
+
 
 [project.urls]
 homepage = "https://jitheshkuyyalil.com"
+documentation = "https://readthedocs.org"
 repository = "https://github.com/jithesh82/LazyAIVideoEditor"
-
-# Add your dependencies here, e.g., numpy = ">=1.18.0"
-dependencies = [
-	'openai-whisper>=v20230314',
-]
-
-[tool.setuptools]
-packages = ["my_simple_package"]  # List your packages here
-
-[tool.setuptools.scripts]
-# Define command line scripts here
-# example-script = "my_simple_package.module:main"
-
+changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
