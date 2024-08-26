@@ -20,7 +20,7 @@ repository = "https://github.com/jithesh82/LazyAIVideoEditor"
 
 [project.dependencies]
 # Add your dependencies here, e.g., numpy = ">=1.18.0"
-openai-whisper = ">=20230314"
+dependencies = [openai-whisper = ">=20230314"]
 
 [tool.setuptools]
 packages = ["my_simple_package"]  # List your packages here
