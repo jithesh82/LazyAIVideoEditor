@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - 'v*.*.*' # Trigger the workflow on tag pushes
+    branches:
+    - main
+    - 'release/*'
 
 jobs:
   build:
