@@ -1,5 +1,9 @@
 import os
 import time
+import sys
+import shutil
+
+projectName = sys.argv[1]
 
 # the absolute path of the folder containing this py file
 rootDir = os.path.dirname((os.path.abspath(__file__)))
@@ -28,3 +32,5 @@ cmd += ' -c copy ' + outfile
 print(cmd)
 os.system(cmd)
 
+# copy the final file to project folder
+shutil.copy(outfile, '/home/jk/jk/work/' + projectName + '/' + os.path.basename(outfile))

@@ -132,7 +132,7 @@ else:
 # rest Toplevel
 windowCount = 0
 #from entry3 import makeform, fetch
-from my_dynamic_tk_entry_007 import makeform, fetch
+from my_dynamic_tk_entry import makeform, fetch
 from quitter import Quitter
 from tkinter import *
 

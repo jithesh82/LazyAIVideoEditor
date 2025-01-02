@@ -1,0 +1,6 @@
+file /home/jk/jk/python/LazyAIVideoEditor/output/1.mov
+file /home/jk/jk/python/LazyAIVideoEditor/output/2.mov
+file /home/jk/jk/python/LazyAIVideoEditor/output/3.mov
+file /home/jk/jk/python/LazyAIVideoEditor/output/4.mov
+file /home/jk/jk/python/LazyAIVideoEditor/output/5.mov
+file /home/jk/jk/python/LazyAIVideoEditor/output/6.mov

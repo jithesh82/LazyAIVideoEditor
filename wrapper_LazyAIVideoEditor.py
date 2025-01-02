@@ -1,12 +1,13 @@
 import os
 from tqdm import tqdm
 import glob
+import sys
 
 """
 clean, transcribe, combine clips for final touch up
 """
 
-projectName = "stuck"
+projectName = sys.argv[1]
 
 # the main directory under work folder
 projectDir = "/home/jk/jk/work/" + projectName
@@ -14,9 +15,9 @@ projectDir = "/home/jk/jk/work/" + projectName
 # this files directory
 rootDir = os.path.dirname(os.path.abspath(__file__))
 
-run = False
+run = sys.argv[2]
 
-if run:
+if eval(run):
 
     # cleaning  and
     # copying rode-mic audio to prepare-video/rode-mic
@@ -88,5 +89,5 @@ os.system(cmd)
 # running join files
 print("joing files to final video ......")
 joinFilesPY = os.path.join(rootDir, "join_files.py")
-cmd = "python " + joinFilesPY
+cmd = "python " + joinFilesPY + ' ' + projectName
 os.system(cmd)
